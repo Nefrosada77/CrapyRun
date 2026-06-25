@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://ccm7hhjgo3dhn"]
+
+[ext_resource type="PackedScene" uid="uid://83e2eosc857j" path="res://game.tscn" id="1_bju55"]
+[ext_resource type="Script" uid="uid://bahacrr0m0ejt" path="res://addons/godot_rl_agents/sync.gd" id="2_lomod"]
+
+[node name="train" type="Node2D" unique_id=1148140771]
+
+[node name="game" parent="." unique_id=1114428494 instance=ExtResource("1_bju55")]
+
+[node name="game2" parent="." unique_id=1616036886 instance=ExtResource("1_bju55")]
+position = Vector2(500, 0)
+
+[node name="game3" parent="." unique_id=1057803902 instance=ExtResource("1_bju55")]
+position = Vector2(1000, 0)
+
+[node name="game4" parent="." unique_id=287880121 instance=ExtResource("1_bju55")]
+position = Vector2(1500, 0)
+
+[node name="game9" parent="." unique_id=1483627244 instance=ExtResource("1_bju55")]
+position = Vector2(2000, 0)
+
+[node name="game5" parent="." unique_id=657204100 instance=ExtResource("1_bju55")]
+position = Vector2(0, 500)
+
+[node name="game6" parent="." unique_id=242095102 instance=ExtResource("1_bju55")]
+position = Vector2(500, 500)
+
+[node name="game7" parent="." unique_id=1981726649 instance=ExtResource("1_bju55")]
+position = Vector2(1000, 500)
+
+[node name="game8" parent="." unique_id=743866860 instance=ExtResource("1_bju55")]
+position = Vector2(1500, 500)
+
+[node name="game10" parent="." unique_id=1749926047 instance=ExtResource("1_bju55")]
+position = Vector2(2000, 500)
+
+[node name="Sync" type="Node" parent="." unique_id=1875045022]
+script = ExtResource("2_lomod")
+speed_up = 10.0
+metadata/_custom_type_script = "uid://bahacrr0m0ejt"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1519525724]
+position = Vector2(1000, 250)
+zoom = Vector2(0.45, 0.45)

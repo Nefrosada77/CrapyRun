@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://83e2eosc857j"]
+
+[ext_resource type="Script" uid="uid://bu2m3ymhr3smh" path="res://goal.gd" id="1_wtcfe"]
+[ext_resource type="Script" uid="uid://tykpn87ynwkk" path="res://player.gd" id="2_0e48y"]
+[ext_resource type="PackedScene" uid="uid://b0w3uth2ncu3e" path="res://big.tscn" id="2_0hol4"]
+[ext_resource type="PackedScene" uid="uid://di07tqf5dovd3" path="res://small.tscn" id="3_q6r6c"]
+[ext_resource type="Script" uid="uid://dbdblxim1n5ii" path="res://controller.gd" id="5_q6r6c"]
+[ext_resource type="Texture2D" uid="uid://6ft31safetyj" path="res://dino.png" id="6_ryrav"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y32ns"]
+size = Vector2(100, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_epypp"]
+size = Vector2(250, 20)
+
+[sub_resource type="Gradient" id="Gradient_7jktm"]
+colors = PackedColorArray(0.30980393, 0.41568628, 0.9372549, 1, 0.6784314, 0.90588236, 0.9490196, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ryrav"]
+gradient = SubResource("Gradient_7jktm")
+fill_to = Vector2(0, 0.50869566)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0hol4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0hol4"]
+font_size = 50
+
+[node name="game" type="Node2D" unique_id=1114428494]
+
+[node name="goal" type="Area2D" parent="." unique_id=327497552 node_paths=PackedStringArray("pointLabel", "player", "big", "small")]
+position = Vector2(-75, 0)
+script = ExtResource("1_wtcfe")
+obstacleList = Array[PackedScene]([ExtResource("2_0hol4"), ExtResource("3_q6r6c")])
+pointLabel = NodePath("../POINTS")
+player = NodePath("../player")
+big = NodePath("../BigSpawn")
+small = NodePath("../SmallSpawn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="goal" unique_id=472739090]
+shape = SubResource("RectangleShape2D_y32ns")
+
+[node name="chao" type="StaticBody2D" parent="." unique_id=371985387]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chao" unique_id=2061669923]
+position = Vector2(0, 70)
+shape = SubResource("RectangleShape2D_epypp")
+
+[node name="Sprite2D" type="Sprite2D" parent="chao" unique_id=5801503]
+position = Vector2(0, 70)
+scale = Vector2(4, 0.315)
+texture = SubResource("GradientTexture2D_ryrav")
+
+[node name="player" type="CharacterBody2D" parent="." unique_id=359046970 node_paths=PackedStringArray("goal")]
+script = ExtResource("2_0e48y")
+goal = NodePath("../goal")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player" unique_id=1744478069]
+shape = SubResource("CircleShape2D_0hol4")
+
+[node name="AIController2D" type="Node2D" parent="player" unique_id=287918837]
+script = ExtResource("5_q6r6c")
+metadata/_custom_type_script = "uid://bdkvjwt5egs1p"
+
+[node name="Dino" type="Sprite2D" parent="player" unique_id=666594187]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+texture_filter = 1
+position = Vector2(0, 1)
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("6_ryrav")
+
+[node name="BigSpawn" type="Marker2D" parent="." unique_id=1213391848]
+position = Vector2(200, -130)
+
+[node name="SmallSpawn" type="Marker2D" parent="." unique_id=2052264070]
+position = Vector2(200, -35)
+
+[node name="POINTS" type="Label" parent="." unique_id=1887155169]
+offset_left = -40.0
+offset_top = -150.0
+offset_right = 40.0
+offset_bottom = -100.0
+text = "0"
+label_settings = SubResource("LabelSettings_0hol4")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_entered" from="goal" to="goal" method="_on_body_entered"]
